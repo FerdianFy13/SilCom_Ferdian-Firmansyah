@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Front\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.front');
-});
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index']);

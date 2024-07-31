@@ -10,11 +10,11 @@
     {{-- end meta --}}
 
     {{-- title --}}
-    <title>Silcom || </title>
+    <title>Silcom || {{ $title }}</title>
     {{-- end title --}}
 
     {{-- icon --}}
-    <link href="{{ asset('front/img/favicon.ico') }}" rel="icon">
+    <link href="{{ asset('dist/img/kaiadmin/favicon.ico') }}" rel="icon">
     {{-- end icon --}}
 
     {{-- fonts --}}
