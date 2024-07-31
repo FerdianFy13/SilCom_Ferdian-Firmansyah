@@ -10,7 +10,7 @@
     {{-- end meta --}}
 
     {{-- title --}}
-    <title>Silcom || </title>
+    <title>Silcom || {{ $title }}</title>
     {{-- end title --}}
 
     {{-- icon --}}
