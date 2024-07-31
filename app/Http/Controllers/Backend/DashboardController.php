@@ -11,7 +11,7 @@ class DashboardController extends Controller
     {
         return view('pages.dashboard.index', [
             'title' => 'Dashboard',
-            'menu' => 'dashboard',
+            'menu' => 'Dashboard',
         ]);
     }
 }

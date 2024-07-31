@@ -8,7 +8,7 @@
     {{-- end meta --}}
 
     {{-- title --}}
-    <title>Kaiadmin - Bootstrap 5 Admin Dashboard</title>
+    <title>SilCom || {{ isset($title) ? $title : '' }}</title>
     {{-- end title --}}
 
     {{-- icon --}}
