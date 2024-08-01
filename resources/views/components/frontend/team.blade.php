@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="bg-light text-center p-4">
-                        <h5 class="mt-2">Full Name</h5>
+                        <h5 class="mt-2">Alex Ray</h5>
                         <span>Trainer</span>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="bg-light text-center p-4">
-                        <h5 class="mt-2">Full Name</h5>
+                        <h5 class="mt-2">Eva Joy</h5>
                         <span>Trainer</span>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="bg-light text-center p-4">
-                        <h5 class="mt-2">Full Name</h5>
+                        <h5 class="mt-2">Liam Fox</h5>
                         <span>Trainer</span>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="bg-light text-center p-4">
-                        <h5 class="mt-2">Full Name</h5>
+                        <h5 class="mt-2">Owen Lee</h5>
                         <span>Trainer</span>
                     </div>
                 </div>
