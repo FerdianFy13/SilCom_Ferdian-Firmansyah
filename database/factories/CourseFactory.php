@@ -28,6 +28,7 @@ class CourseFactory extends Factory
             'title' => $faker->unique()->word . ' Course',
             'price' => $faker->numberBetween(60, 1000),
             'duration' => $faker->numberBetween(1, 10),
+            'quota' => $faker->numberBetween(1, 15),
             'description' => $faker->paragraph,
             'status' => $faker->randomElement(['Active', 'Inactive']),
             'image_poster' => $faker->imageUrl(640, 480, 'sports', true, 'poster'),

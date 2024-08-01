@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title')->unique();
             $table->integer('price');
             $table->integer('duration');
+            $table->integer('quota');
             $table->string('description');
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->string('image_poster');

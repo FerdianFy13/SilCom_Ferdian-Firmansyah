@@ -21,8 +21,44 @@
                 </div>
             </div>
             <a href="contact.html" class="nav-item nav-link">Contact</a>
+
+            {{-- login check --}}
+            @if (Auth::check())
+                @php
+                    $user = Auth::user();
+                @endphp
+
+                @if ($user->hasRole('Admin'))
+                    <a href="{{ url('/dashboard') }}" class="nav-item nav-link">
+                        <i class="fa fa-tachometer-alt"></i> Dashboard
+                    </a>
+                    <span class="nav-item nav-link">Hello, {{ $user->name }}</span>
+                @else
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user me-2"></i>{{ $user->name }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="{{ url('/logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
+                @endif
+
+                <a href="contact.html" class="nav-item nav-link"><i class="fa fa-shopping-cart"></i></a>
+            @else
+                <a href="{{ url('/login') }}" class="nav-item nav-link">
+                    <i class="fa fa-sign-in-alt"></i> Login
+                </a>
+            @endif
+            {{-- end login check --}}
+
         </div>
-        <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get Started<i
-                class="fa fa-arrow-right ms-3"></i></a>
     </div>
 </nav>
