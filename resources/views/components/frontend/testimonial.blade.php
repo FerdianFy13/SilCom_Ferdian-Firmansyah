@@ -16,12 +16,11 @@
                                 <i class="fa fa-quote-left fa-2x text-primary"></i>
                             </div>
                         </div>
-                        <p class="fs-4">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore
-                            lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.
+                        <p class="fs-4">This driving course greatly boosted my confidence on the road. The instructor was highly professional and provided valuable tips that made learning easier and more enjoyable.
                         </p>
                         <hr class="w-25 mx-auto">
-                        <h5>Client Name</h5>
-                        <span>Profession</span>
+                        <h5>Alex Johnson</h5>
+                        <span>Software Engineer</span>
                     </div>
                     <div class="testimonial-item text-center">
                         <div class="position-relative mb-5">
@@ -32,12 +31,11 @@
                                 <i class="fa fa-quote-left fa-2x text-primary"></i>
                             </div>
                         </div>
-                        <p class="fs-4">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore
-                            lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.
+                        <p class="fs-4">The service at this course was exceptional! From registration to practice, everything went smoothly. I feel well-prepared and trained to obtain my driving license.
                         </p>
                         <hr class="w-25 mx-auto">
-                        <h5>Client Name</h5>
-                        <span>Profession</span>
+                        <h5>Michael Brown</h5>
+                        <span>Graphic Designer</span>
                     </div>
                     <div class="testimonial-item text-center">
                         <div class="position-relative mb-5">
@@ -48,12 +46,11 @@
                                 <i class="fa fa-quote-left fa-2x text-primary"></i>
                             </div>
                         </div>
-                        <p class="fs-4">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore
-                            lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.
+                        <p class="fs-4">I am very satisfied with this driving course. The instructional material was presented clearly, and the practical exercises offered a lot of useful experience for both the exam and everyday driving.
                         </p>
                         <hr class="w-25 mx-auto">
-                        <h5>Client Name</h5>
-                        <span>Profession</span>
+                        <h5>Emily Carter</h5>
+                        <span>Marketing Manager</span>
                     </div>
                 </div>
             </div>

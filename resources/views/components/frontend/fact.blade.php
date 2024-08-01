@@ -8,8 +8,10 @@
                             <i class="fa fa-car text-white"></i>
                         </div>
                         <div class="ps-4">
-                            <h5>Easy Driving Learn </h5>
-                            <span>Clita erat ipsum lorem sit sed stet duo justo erat amet</span>
+                            <h5>Easy Driving Learn</h5>
+                            <span>Learn to drive with ease through our comprehensive driving lessons and expert
+                                guidance.</span>
+
                         </div>
                     </div>
                 </div>
@@ -22,7 +24,8 @@
                         </div>
                         <div class="ps-4">
                             <h5>National Instructor</h5>
-                            <span>Clita erat ipsum lorem sit sed stet duo justo erat amet</span>
+                            <span>Expertly trained national instructors offering comprehensive guidance and support for
+                                driving education.</span>
                         </div>
                     </div>
                 </div>
@@ -34,8 +37,9 @@
                             <i class="fa fa-file-alt text-white"></i>
                         </div>
                         <div class="ps-4">
-                            <h5>Get licence</h5>
-                            <span>Clita erat ipsum lorem sit sed stet duo justo erat amet</span>
+                            <h5>Get Licence</h5>
+                            <span>Easy steps to obtain your driving license with our streamlined application process and
+                                expert assistance.</span>
                         </div>
                     </div>
                 </div>
