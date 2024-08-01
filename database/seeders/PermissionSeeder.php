@@ -15,7 +15,7 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        Permission::create(['name' => 'Aktif']);
-        Permission::create(['name' => 'Tidak Aktif']);
+        Permission::create(['name' => 'Active']);
+        Permission::create(['name' => 'Inactive']);
     }
 }

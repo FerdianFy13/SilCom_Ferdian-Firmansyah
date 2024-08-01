@@ -61,10 +61,10 @@ class UserSeeder extends Seeder
 
             if ($user['role'] === 'Admin') {
                 $newUser->assignRole('Admin');
-                $newUser->givePermissionTo('Aktif');
+                $newUser->givePermissionTo('Active');
             } else {
                 $newUser->assignRole('Customer');
-                $newUser->givePermissionTo('Aktif');
+                $newUser->givePermissionTo('Active');
             }
         }
     }
