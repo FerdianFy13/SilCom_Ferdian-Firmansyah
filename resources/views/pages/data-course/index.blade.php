@@ -37,7 +37,14 @@
                                         <td>${{ $item->price }}</td>
                                         <td>{{ $item->duration }} Week</td>
                                         <td>{{ $item->quota }}</td>
-                                        <td>{{ $item->status }}</td>
+                                        <td>
+                                            <button type="submit"
+                                                class="btn btn-primary btn-round btn-md {{ $item->status === 'Active' ? 'btn-green' : 'btn-red' }}"
+                                                id="btn-status" data-id="{{ $item->id }}">
+                                                {{ $item->status }}
+                                            </button>
+
+                                        </td>
                                         <td>
                                             <div class="form-button-action">
                                                 <a href="{{ route('data-course.show', encrypt($item->id)) }}"
@@ -72,3 +79,4 @@
 @endsection
 
 @include('pages.data-course.dist.h_table')
+@include('pages.data-course.dist.h_status')

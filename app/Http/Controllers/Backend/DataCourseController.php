@@ -188,54 +188,53 @@ class DataCourseController extends Controller
                 'image_banner' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                 'description' => 'required',
             ], $this->messageValidation(), $this->attributeValidation());
-    
+
             $course = Course::findOrFail($id);
             $validation['status'] = 'Active';
-    
+
             if ($request->file('image_poster')) {
                 if ($course->image_poster) {
                     Storage::delete($course->image_poster);
                 }
-    
+
                 $name = strtolower($validation['title']);
                 $currentDate = now()->format('Ymd');
-    
+
                 $extension = $request->file('image_poster')->getClientOriginalExtension();
                 $imageName = "{$name}_poster_{$currentDate}.{$extension}";
-    
+
                 $validation['image_poster'] = $request
                     ->file('image_poster')
                     ->storeAs('data-course/image_poster', $imageName);
             } else {
                 $validation['image_poster'] = $course->image_poster;
             }
-    
+
             if ($request->file('image_banner')) {
                 if ($course->image_banner) {
                     Storage::delete($course->image_banner);
                 }
-    
+
                 $name = strtolower($validation['title']);
                 $currentDate = now()->format('Ymd');
-    
+
                 $extension = $request->file('image_banner')->getClientOriginalExtension();
                 $imageName = "{$name}_banner_{$currentDate}.{$extension}";
-    
+
                 $validation['image_banner'] = $request
                     ->file('image_banner')
                     ->storeAs('data-course/image_banner', $imageName);
             } else {
                 $validation['image_banner'] = $course->image_banner;
             }
-    
+
             $course->update($validation);
-    
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'The course has been successfully updated.',
                 'data' => $course
             ], 200);
-    
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
         } catch (\Exception $e) {
@@ -255,6 +254,25 @@ class DataCourseController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function updateStatus(Course $category)
+    {
+        try {
+            $category->status = ($category->status === 'Active') ? 'Inactive' : 'Active';
+            $category->save();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Status updated successfully.',
+                'status' => $category->status
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to update status.'
+            ], 500);
+        }
     }
 
     private function messageValidation()

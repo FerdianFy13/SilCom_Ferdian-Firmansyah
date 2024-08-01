@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth', 'role:Admin']], function () {
 
     // data course
     Route::resource('data-course', DataCourseController::class);
+    Route::post('/data-course/{category}/update-status', [DataCourseController::class, 'updateStatus']);
 
     // data category
     Route::resource('/data-category', DataCategoryController::class)->except('destroy');
