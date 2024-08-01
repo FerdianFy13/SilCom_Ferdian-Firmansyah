@@ -6,7 +6,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex align-items-center">
-                        <button class="btn btn-orange text-white btn-round me-auto" data-bs-toggle="modal" data-bs-target="#addRowModal">
+                        <button class="btn btn-orange text-white btn-round me-auto"
+                            onclick="location.href='{{ route('data-course.create') }}'">
                             <i class="fa fa-plus"></i>
                             Add Course
                         </button>
@@ -39,7 +40,7 @@
                                         <td>{{ $item->status }}</td>
                                         <td>
                                             <div class="form-button-action">
-                                                <a href="{{ route('data-course.edit', encrypt($item->id)) }}"
+                                                <a href="{{ route('data-course.show', encrypt($item->id)) }}"
                                                     class="btn btn-icon btn-round btn-primary btn-md me-3">
                                                     <i class="fa fa-eye text-white"></i>
                                                 </a>
