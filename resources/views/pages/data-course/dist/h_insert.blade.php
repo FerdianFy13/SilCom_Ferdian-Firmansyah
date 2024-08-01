@@ -85,20 +85,6 @@
                                         icon: 'error',
                                         confirmButtonColor: '#0F345E',
                                     });
-                                } else if (xhr.status === 423) {
-                                    Swal.fire({
-                                        title: 'Validation Error',
-                                        text: 'Courier name is required',
-                                        icon: 'error',
-                                        confirmButtonColor: '#0F345E',
-                                    });
-                                } else if (xhr.status === 426) {
-                                    Swal.fire({
-                                        title: 'Failed',
-                                        text: 'Sorry, sorted waste data for this month and year is already available',
-                                        icon: 'warning',
-                                        confirmButtonColor: '#0F345E',
-                                    });
                                 } else {
                                     Swal.fire({
                                         title: 'Failed',

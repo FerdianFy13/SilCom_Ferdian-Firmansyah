@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\DataCategoryController;
 use App\Http\Controllers\Backend\DataCourseController;
 
 /*
@@ -26,6 +27,9 @@ Route::group(['middleware' => ['auth', 'role:Admin']], function () {
 
     // data course
     Route::resource('data-course', DataCourseController::class);
+
+    // data category
+    Route::resource('/data-category', DataCategoryController::class)->except('destroy');
 });
 
 require __DIR__ . '/auth.php';
