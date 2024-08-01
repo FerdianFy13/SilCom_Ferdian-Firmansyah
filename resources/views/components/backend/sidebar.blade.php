@@ -35,7 +35,7 @@
                             <h4 class="text-section">{{ $item['text'] }}</h4>
                         </li>
                     @else
-                        <li class="nav-item {{ Request::is($item['route']) ? 'active' : '' }}">
+                        <li class="nav-item {{ Request::is($item['route'] . '*') ? 'active' : '' }}">
                             <a href="{{ url($item['route']) }}">
                                 <i class="{{ $item['icon'] }}"></i>
                                 <p>{{ $item['text'] }}</p>

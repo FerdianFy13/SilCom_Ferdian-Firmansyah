@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\Front\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\DataCourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/dashboard', [DashboardController::class, 'index']);
+
+// backend
+Route::group(['middleware' => ['auth', 'role:Admin']], function () {
+    // dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+
+    // data course
+    Route::resource('data-course', DataCourseController::class);
+});
 
 require __DIR__ . '/auth.php';

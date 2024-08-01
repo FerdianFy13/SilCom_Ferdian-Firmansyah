@@ -4,6 +4,7 @@
 <head>
     {{-- meta --}}
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
     {{-- end meta --}}
 
@@ -42,7 +43,13 @@
     <link rel="stylesheet" href="{{ asset('dist/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('dist/css/plugins.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('dist/css/kaiadmin.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('dist/vendors/sweetalert2/sweetalert2.min.css') }}" media="print"
+        onload="this.media='all'">
     <link rel="stylesheet" href="{{ asset('dist/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    @stack('styles')
     {{-- end css --}}
 </head>
 
@@ -86,10 +93,13 @@
     <script src="{{ asset('dist/js/plugin/jquery.sparkline/jquery.sparkline.min.js') }}"></script>
     <script src="{{ asset('dist/js/plugin/chart-circle/circles.min.js') }}"></script>
     <script src="{{ asset('dist/js/plugin/datatables/datatables.min.js') }}"></script>
+    <script defer src="{{ asset('dist/vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('dist/js/plugin/jsvectormap/jsvectormap.min.js') }}"></script>
     <script src="{{ asset('dist/js/plugin/jsvectormap/world.js') }}"></script>
-    <script src="{{ asset('dist/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
+
     <script src="{{ asset('dist/js/kaiadmin.min.js') }}"></script>
+
+    @stack('scripts')
     {{-- end javascript --}}
 </body>
 

@@ -33,7 +33,7 @@
                         <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#"
                             aria-expanded="false">
                             <div class="avatar-sm">
-                                <img src="dist/img/profile.jpg" alt="..." class="avatar-img rounded-circle" />
+                                <img src="{{ asset('dist/img/profile.jpg') }}" alt="..." class="avatar-img rounded-circle" />
                             </div>
                             <span class="profile-username">
                                 <span class="op-7">Hi,</span>
@@ -45,7 +45,7 @@
                                 <li>
                                     <div class="user-box">
                                         <div class="avatar-lg">
-                                            <img src="dist/img/profile.jpg" alt="image profile"
+                                            <img src="{{ asset('dist/img/profile.jpg') }}" alt="image profile"
                                                 class="avatar-img rounded" />
                                         </div>
                                         <div class="u-text">
