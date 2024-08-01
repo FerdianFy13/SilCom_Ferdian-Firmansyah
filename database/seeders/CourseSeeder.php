@@ -44,6 +44,7 @@ class CourseSeeder extends Seeder
                 'title' => $item['name'],
                 'price' => $item['price'],
                 'duration' => $item['duration'],
+                'quota' => 12,
                 'description' => $item['description'],
                 'status' => $item['status'],
                 'image_poster' => $item['image_poster'],
