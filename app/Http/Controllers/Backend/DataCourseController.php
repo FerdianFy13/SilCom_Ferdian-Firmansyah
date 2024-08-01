@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class DataCourseController extends Controller
@@ -125,9 +126,9 @@ class DataCourseController extends Controller
         try {
             $id = decrypt($encrytedId);
             $data = Course::with('category')->findOrFail($id);
-            
+
             return view('pages.data-course.show', [
-                'title' => 'DetailData Course',
+                'title' => 'Show Data Course',
                 'menu' => 'Data Course',
                 'data' => $data
             ]);
@@ -142,9 +143,22 @@ class DataCourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($encrytedId)
     {
-        //
+        try {
+            $id = decrypt($encrytedId);
+            $data = Course::with('category')->findOrFail($id);
+            $category = Category::orderBy('name', 'ASC')->get();
+
+            return view('pages.data-course.edit', [
+                'title' => 'Edit Data Course',
+                'menu' => 'Data Course',
+                'data' => $data,
+                'category' => $category
+            ]);
+        } catch (\Throwable $th) {
+            return redirect()->route('data-course.index');
+        }
     }
 
     /**
@@ -156,7 +170,80 @@ class DataCourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $validation = $request->validate([
+                'category_id' => 'required|exists:categories,id',
+                'title' => [
+                    'required',
+                    'string',
+                    'min:3',
+                    'regex:/^[a-zA-Z][a-zA-Z\s]*$/',
+                    'max:50',
+                    'unique:courses,title,' . $id
+                ],
+                'price' => 'required|digits_between:1,7|regex:/^[1-9][0-9]*$/',
+                'duration' => 'required|digits_between:1,4|regex:/^[1-9][0-9]*$/',
+                'quota' => 'required|digits_between:1,5|regex:/^[1-9][0-9]*$/',
+                'image_poster' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+                'image_banner' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+                'description' => 'required',
+            ], $this->messageValidation(), $this->attributeValidation());
+    
+            $course = Course::findOrFail($id);
+            $validation['status'] = 'Active';
+    
+            if ($request->file('image_poster')) {
+                if ($course->image_poster) {
+                    Storage::delete($course->image_poster);
+                }
+    
+                $name = strtolower($validation['title']);
+                $currentDate = now()->format('Ymd');
+    
+                $extension = $request->file('image_poster')->getClientOriginalExtension();
+                $imageName = "{$name}_poster_{$currentDate}.{$extension}";
+    
+                $validation['image_poster'] = $request
+                    ->file('image_poster')
+                    ->storeAs('data-course/image_poster', $imageName);
+            } else {
+                $validation['image_poster'] = $course->image_poster;
+            }
+    
+            if ($request->file('image_banner')) {
+                if ($course->image_banner) {
+                    Storage::delete($course->image_banner);
+                }
+    
+                $name = strtolower($validation['title']);
+                $currentDate = now()->format('Ymd');
+    
+                $extension = $request->file('image_banner')->getClientOriginalExtension();
+                $imageName = "{$name}_banner_{$currentDate}.{$extension}";
+    
+                $validation['image_banner'] = $request
+                    ->file('image_banner')
+                    ->storeAs('data-course/image_banner', $imageName);
+            } else {
+                $validation['image_banner'] = $course->image_banner;
+            }
+    
+            $course->update($validation);
+    
+            return response()->json([
+                'status' => 'success',
+                'message' => 'The course has been successfully updated.',
+                'data' => $course
+            ], 200);
+    
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to update the course.'
+            ], 500);
+        }
     }
 
     /**
