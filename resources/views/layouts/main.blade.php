@@ -43,6 +43,9 @@
     <link rel="stylesheet" href="{{ asset('dist/css/plugins.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('dist/css/kaiadmin.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('dist/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}" />
+
+    @stack('styles')
     {{-- end css --}}
 </head>
 
@@ -90,6 +93,8 @@
     <script src="{{ asset('dist/js/plugin/jsvectormap/world.js') }}"></script>
     <script src="{{ asset('dist/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
     <script src="{{ asset('dist/js/kaiadmin.min.js') }}"></script>
+
+    @stack('scripts')
     {{-- end javascript --}}
 </body>
 
