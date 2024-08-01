@@ -37,19 +37,33 @@
         };
 
         const validateUsername = (inputElement) => {
-            const inputValue = inputElement.value;
+            let inputValue = inputElement.value;
 
-            if (!/^[a-zA-Z]/.test(inputValue)) {
-                inputElement.value = inputValue.replace(/[^a-zA-Z]+/, '');
-                return;
-            }
+            inputValue = inputValue.replace(/[^a-zA-Z\s]/g, '');
+            inputValue = inputValue.replace(/^\s+/, '');
 
-            const validPattern = /^[a-zA-Z][a-zA-Z0-9]*$/;
 
-            if (!validPattern.test(inputValue)) {
-                inputElement.value = inputValue.replace(/[^a-zA-Z0-9]|(?<![a-zA-Z])[0-9]/g, '');
-            }
+            inputElement.value = inputValue;
         };
+
+        const validateNIK = (inputElement) => {
+            let inputValue = inputElement.value;
+
+            inputValue = inputValue.replace(/[^0-9]/g, '');
+
+            if (!/^[1-9][0-9]*$/.test(inputValue)) {
+                inputValue = inputValue.replace(/0+(?=[^0]|$)/g, '');
+            }
+
+            inputElement.value = inputValue;
+        };
+
+        const validatePhone = (inputElement) => {
+            let inputValue = inputElement.value;
+            inputValue = inputValue.replace(/[^0-9]/g, '');
+            inputElement.value = inputValue;
+        };
+
 
         const validateEmail = (inputElement) => {
             const inputValue = inputElement.value;
