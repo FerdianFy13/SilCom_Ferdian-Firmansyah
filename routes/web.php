@@ -6,6 +6,7 @@ use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\DataCategoryController;
 use App\Http\Controllers\Backend\DataCourseController;
+use App\Http\Controllers\Backend\DataUserManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,11 @@ Route::group(['middleware' => ['auth', 'role:Admin']], function () {
 
     // data category
     Route::resource('/data-category', DataCategoryController::class)->except('destroy');
+
+    // data user management
+    Route::resource('/data-user', DataUserManagementController::class)->only('index');
+    Route::post('/data-user/{user}/toggle-status', [DataUserManagementController::class, 'toggleStatus']);
+    Route::post('/data-user/{user}/reset-password', [DataUserManagementController::class, 'updatePassword']);
 });
 
 require __DIR__ . '/auth.php';
