@@ -48,26 +48,34 @@
     {{-- end navbar --}}
 
 
-    {{-- carousel --}}
-    @include('components.frontend.carousel')
-    {{-- end carousel --}}
+    @if (request()->is('/'))
+        {{-- carousel --}}
+        @include('components.frontend.carousel')
+        {{-- end carousel --}}
 
 
-    {{-- fact --}}
-    @include('components.frontend.fact')
-    {{-- end fact --}}
+        {{-- fact --}}
+        @include('components.frontend.fact')
+        {{-- end fact --}}
+    @else
+        {{-- breadcrumb --}}
+        @include('components.frontend.breadcrumb')
+        {{-- end breadcrumb --}}
+    @endif
 
     {{-- content --}}
     @yield('fe_content')
     {{-- end content --}}
 
-    {{-- team --}}
-    @include('components.frontend.team')
-    {{-- end team --}}
+    @if (request()->is('/'))
+        {{-- team --}}
+        @include('components.frontend.team')
+        {{-- end team --}}
 
-    {{-- testimonial --}}
-    @include('components.frontend.testimonial')
-    {{-- end testimonial --}}
+        {{-- testimonial --}}
+        @include('components.frontend.testimonial')
+        {{-- end testimonial --}}
+    @endif
 
     {{-- footer --}}
     @include('components.frontend.footer')

@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\DataCategoryController;
 use App\Http\Controllers\Backend\DataCourseController;
 use App\Http\Controllers\Backend\DataUserManagementController;
+use App\Http\Controllers\Front\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,7 @@ use App\Http\Controllers\Backend\DataUserManagementController;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/courses', [CourseController::class, 'index']);
 
 // backend
 Route::group(['middleware' => ['auth', 'role:Admin']], function () {

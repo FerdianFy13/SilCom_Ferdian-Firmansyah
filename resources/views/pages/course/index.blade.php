@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('fe_content')
-    <div class="container-xxl courses my-6 py-6 pb-0">
+    <div class="container-xxl py-6">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
                 <h6 class="text-primary text-uppercase mb-2">Tranding Courses</h6>
@@ -10,7 +10,7 @@
             <div class="row g-4 justify-content-center">
                 @foreach ($data as $item)
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="courses-item d-flex flex-column bg-white overflow-hidden h-100">
+                        <div class="courses-item d-flex flex-column bg-light overflow-hidden h-100">
                             <div class="text-center p-4 pt-0">
                                 <div class="d-inline-block bg-primary text-white fs-5 py-1 px-4 mb-4">${{ $item->price }}
                                 </div>
@@ -18,11 +18,12 @@
                                 <p>{{ $item->description }}</p>
                                 <ol class="breadcrumb justify-content-center mb-0">
                                     <li class="breadcrumb-item small"><i
-                                            class="fa fa-signal text-primary me-2"></i>{{ $item->category->name }}</li>
+                                            class="fa fa-signal text-primary me-2"></i>{{ $item->category->name }}
                                     </li>
                                     <li class="breadcrumb-item small"><i
                                             class="fa fa-calendar-alt text-primary me-2"></i>{{ $item->duration }}
-                                        Week</li>
+                                        Week
+                                    </li>
                                 </ol>
                             </div>
                             <div class="position-relative mt-auto">
@@ -40,6 +41,9 @@
                         </div>
                     </div>
                 @endforeach
+                <div class="d-flex justify-content-center mt-4">
+                    {{ $data->links() }}
+                </div>
             </div>
         </div>
     </div>
