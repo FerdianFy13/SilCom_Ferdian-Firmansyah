@@ -54,10 +54,12 @@
                         </div>
                         <div class="row g-4">
                             <div class="col-sm-6">
-                                <a class="btn btn-primary py-3 px-5"
-                                    href="{{ Auth::check() ? url('/contact') : route('login') . '?redirect=' . urlencode(url('/courses/' . encrypt($data->id))) }}">
+                                <a class="btn {{ $data->quota > 0 ? 'btn-primary' : 'btn-secondary disabled' }} py-3 px-5"
+                                    href="{{ $data->quota > 0 ? (Auth::check() ? url('/contact') : route('login') . '?redirect=' . urlencode(url('/courses/' . encrypt($data->id)))) : '#' }}"
+                                    tabindex="-1" aria-disabled="true">
                                     Checkout Now
                                 </a>
+
                             </div>
                             <div class="col-sm-6">
                                 <a class="d-inline-flex align-items-center btn btn-outline-primary border-2 p-2"
