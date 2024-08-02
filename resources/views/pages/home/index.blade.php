@@ -34,7 +34,7 @@
                                         loading="lazy" style="height: 300px; width: 100%">
                                 @endif
                                 <div class="courses-overlay">
-                                    <a class="btn btn-outline-primary border-2" href="">Read More</a>
+                                    <a class="btn btn-outline-primary border-2" href="{{ url('courses/' . encrypt($item->id)) }}">Read More</a>
                                 </div>
                             </div>
                         </div>

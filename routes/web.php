@@ -22,6 +22,7 @@ use App\Http\Controllers\Front\CourseController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/courses', [CourseController::class, 'index']);
+Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
 
 // backend
 Route::group(['middleware' => ['auth', 'role:Admin']], function () {
