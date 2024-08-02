@@ -26,8 +26,10 @@
                         <h1 class="display-6 mb-4">{{ $data->title }}</h1>
                         <p>{{ $data->description }}</p>
                         <p class="mb-4">Join our SilCom Course and enhance your vehicle care skills in
-                            just {{ $data->duration }} weeks. With a small group of only {{ $data->quota }} participants, you'll receive personalized attention
-                            and hands-on experience from industry experts. Priced at just ${{ $data->price }}, this course offers a
+                            just {{ $data->duration }} weeks. With a small group of only {{ $data->quota }} participants,
+                            you'll receive personalized attention
+                            and hands-on experience from industry experts. Priced at just ${{ $data->price }}, this course
+                            offers a
                             comprehensive introduction to car maintenance, making it ideal for both enthusiasts and those
                             looking to improve their practical knowledge.</p>
                         <div class="row g-2 mb-4 pb-2">
@@ -52,7 +54,10 @@
                         </div>
                         <div class="row g-4">
                             <div class="col-sm-6">
-                                <a class="btn btn-primary py-3 px-5" href="">Checkout Now</a>
+                                <a class="btn btn-primary py-3 px-5"
+                                    href="{{ Auth::check() ? url('/contact') : route('login') . '?redirect=' . urlencode(url('/courses/' . encrypt($data->id))) }}">
+                                    Checkout Now
+                                </a>
                             </div>
                             <div class="col-sm-6">
                                 <a class="d-inline-flex align-items-center btn btn-outline-primary border-2 p-2"

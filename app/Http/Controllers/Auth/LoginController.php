@@ -12,8 +12,11 @@ use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $redirectUrl = $request->query('redirect', '/');
+        $request->session()->put('redirect', $redirectUrl);
+
         return view('pages.auth.login', [
             "title" => "Login",
         ]);
@@ -38,6 +41,7 @@ class LoginController extends Controller
             }
 
             $credentials = $request->only(['credential', 'password']);
+            $redirectUrl = $request->query('redirect', '/');
 
             if (filter_var($credentials['credential'], FILTER_VALIDATE_EMAIL)) {
                 $field = 'email';
@@ -53,7 +57,7 @@ class LoginController extends Controller
                 if ($user->hasRole('Admin')) {
                     return redirect(RouteServiceProvider::HOME);
                 } else {
-                    return redirect('/');
+                    return redirect(session('redirect', $redirectUrl));
                 }
             } elseif ($user && !$user->can('Active')) {
                 session(['credential' => $credentials['credential']]);
