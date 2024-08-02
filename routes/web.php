@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\DataCourseController;
 use App\Http\Controllers\Backend\DataCategoryController;
 use App\Http\Controllers\Backend\DataUserManagementController;
+use App\Http\Controllers\Front\OrderPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,11 @@ Route::post('/courses', [CourseController::class, 'store'])->name('courses.creat
 
 // contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+
+// order payment
+Route::group(['middleware' => ['auth', 'role:Customer']], function () {
+    Route::get('/order-payment', [OrderPaymentController::class, 'index']);
+});
 
 // backend
 Route::group(['middleware' => ['auth', 'role:Admin']], function () {

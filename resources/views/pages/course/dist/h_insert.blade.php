@@ -53,7 +53,7 @@
                                     confirmButtonColor: '#0F345E',
                                 }).then((result) => {
                                     window.location.href =
-                                        `{{ url('/contact') }}`;
+                                        `{{ url('/order-payment') }}`;
                                 });
                             },
                             error: function(xhr) {
