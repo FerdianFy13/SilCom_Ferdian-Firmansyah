@@ -3,11 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Front\HomeController;
-use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\Backend\DataCategoryController;
-use App\Http\Controllers\Backend\DataCourseController;
-use App\Http\Controllers\Backend\DataUserManagementController;
 use App\Http\Controllers\Front\CourseController;
+use App\Http\Controllers\Front\ContactController;
+use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\DataCourseController;
+use App\Http\Controllers\Backend\DataCategoryController;
+use App\Http\Controllers\Backend\DataUserManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,7 @@ use App\Http\Controllers\Front\CourseController;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/courses', [CourseController::class, 'index']);
 Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 
 // backend
 Route::group(['middleware' => ['auth', 'role:Admin']], function () {
