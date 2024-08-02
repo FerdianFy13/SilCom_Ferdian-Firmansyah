@@ -21,9 +21,15 @@ use App\Http\Controllers\Backend\DataUserManagementController;
 |
 */
 
+// home
 Route::get('/', [HomeController::class, 'index']);
+
+// courses
 Route::get('/courses', [CourseController::class, 'index']);
 Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
+Route::post('/courses', [CourseController::class, 'store'])->name('courses.create');
+
+// contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 
 // backend

@@ -54,12 +54,26 @@
                         </div>
                         <div class="row g-4">
                             <div class="col-sm-6">
-                                <a class="btn {{ $data->quota > 0 ? 'btn-primary' : 'btn-secondary disabled' }} py-3 px-5"
-                                    href="{{ $data->quota > 0 ? (Auth::check() ? url('/contact') : route('login') . '?redirect=' . urlencode(url('/courses/' . encrypt($data->id)))) : '#' }}"
-                                    tabindex="-1" aria-disabled="true">
-                                    Checkout Now
-                                </a>
-
+                                @if ($data->quota > 0)
+                                    @if (Auth::check())
+                                        <form id="formInsert" enctype="multipart/form-data" method="POST">
+                                            <input type="hidden" name="course_id" value="{{ $data->id }}">
+                                            <a class="btn btn-primary py-3 px-5" id="btn-checkout">
+                                                Checkout Now
+                                            </a>
+                                        </form>
+                                    @else
+                                        <a class="btn btn-primary py-3 px-5"
+                                            href="{{ route('login') . '?redirect=' . urlencode(url('/courses/' . encrypt($data->id))) }}">
+                                            Checkout Now
+                                        </a>
+                                    @endif
+                                @else
+                                    <a class="btn btn-secondary py-3 px-5" tabindex="-1" id="btn-disabled"
+                                        aria-disabled="true">
+                                        Checkout Now
+                                    </a>
+                                @endif
                             </div>
                             <div class="col-sm-6">
                                 <a class="d-inline-flex align-items-center btn btn-outline-primary border-2 p-2"
@@ -77,3 +91,5 @@
         </div>
     </div>
 @endsection
+
+@include('pages.course.dist.h_insert')
