@@ -13,11 +13,11 @@ class OrderPayment extends Model
 
     public function course()
     {
-        return $this->hasMany(Course::class, 'course_id');
+        return $this->belongsTo(Course::class, 'course_id');
     }
 
     public function user()
     {
-        return $this->hasMany(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 }
