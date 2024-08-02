@@ -107,6 +107,7 @@
     <script src="{{ asset('front/lib/easing/easing.min.js') }}"></script>
     <script src="{{ asset('front/lib/waypoints/waypoints.min.js') }}"></script>
     <script src="{{ asset('front/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('dist/js/plugin/datatables/datatables.min.js') }}"></script>
     <script defer src="{{ asset('dist/vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('front/js/main.js') }}"></script>
 

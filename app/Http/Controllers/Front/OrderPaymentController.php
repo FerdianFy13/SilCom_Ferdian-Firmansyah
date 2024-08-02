@@ -17,6 +17,11 @@ class OrderPaymentController extends Controller
             ->where('status', 'Unpaid')
             ->get();
 
+        $history = OrderPayment::with(['course.category', 'user'])
+            ->where('user_id', Auth::id())
+            ->where('status', 'Paid')
+            ->get();
+
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
         \Midtrans\Config::$isProduction = false;
         \Midtrans\Config::$isSanitized = true;
@@ -73,7 +78,8 @@ class OrderPaymentController extends Controller
             'title' => 'Order Payment',
             'menu' => 'Order Payment',
             'data' => $data,
-            'snapToken' => $snapToken
+            'snapToken' => $snapToken,
+            'history' => $history,
         ]);
     }
 }

@@ -25,7 +25,8 @@
                         @include('pages.order-payment.checkout')
                     @endif
                 </div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    @include('pages.order-payment.history')
                 </div>
             </div>
         </div>
@@ -37,3 +38,4 @@
 @endsection
 
 @include('pages.order-payment.dist.h_snap')
+@include('pages.order-payment.dist.h_table')
