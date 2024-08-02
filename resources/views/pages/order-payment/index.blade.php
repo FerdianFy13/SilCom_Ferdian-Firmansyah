@@ -17,108 +17,13 @@
             </ul>
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div class="" style="margin-top: 1.2em">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="mb-4">
-                                    <h4 class="mb-2">A. Personal Information</h4>
-                                    <div class="mb-3 row">
-                                        <label for="name" class="col-sm-2 col-form-label">Name:</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" readonly class="form-control-plaintext" id="name"
-                                                value="{{ Auth::user()->name }}">
-                                        </div>
-                                    </div>
-                                    <div class="mb-2 row">
-                                        <label for="nik" class="col-sm-2 col-form-label">NIK:</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" readonly class="form-control-plaintext" id="nik"
-                                                value="{{ Auth::user()->nik }}">
-                                        </div>
-                                    </div>
-                                    <div class="mb-2 row">
-                                        <label for="email" class="col-sm-2 col-form-label">Email:</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" readonly class="form-control-plaintext" id="email"
-                                                value="{{ Auth::user()->email }}">
-                                        </div>
-                                    </div>
-                                    <div class="mb-2 row">
-                                        <label for="phone" class="col-sm-2 col-form-label">Phone Number:</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" readonly class="form-control-plaintext" id="phone"
-                                                value="{{ Auth::user()->phone }}">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <h4 class="mb-3">B. Course Information</h4>
-                                    @foreach ($data as $item)
-                                        <div class="card mb-3 shadow-sm">
-                                            <div class="row g-0">
-                                                <div class="col-md-4">
-                                                    <img src="{{ Storage::exists($item->course->image_poster) ? asset('storage/' . $item->course->image_poster) : asset('front/img/about-1.jpg') }}"
-                                                        class="img-fluid rounded-start" alt="{{ $item->course->title }}">
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">{{ $item->course->title }}</h5>
-                                                        <p class="card-text">{{ $item->course->description }}</p>
-                                                        <ul class="">
-                                                            <li>Category:
-                                                                {{ $item->course->category->name }}</li>
-                                                            <li>Duration: {{ $item->course->duration }}
-                                                                Week</li>
-                                                            <li>Price: ${{ $item->course->price }}</li>
-                                                            <li>Quota: {{ $item->course->quota }}</li>
-                                                        </ul>
-                                                        <a id="btn-delete-checkout" class="btn btn-danger">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <h4 class="mb-3">C. Payment Course</h4>
-                                <ul class="list-group list-group-numbered">
-                                    @foreach ($data as $item)
-                                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                                            <div class="ms-2 me-auto">
-                                                <div class="fw-bold">{{ $item->course->title }}</div>
-                                                <div class="text-muted mt-1">
-                                                    <i
-                                                        class="fa fa-signal text-primary me-2"></i>{{ $item->course->category->name }}
-                                                    <span class="mx-2">|</span>
-                                                    <i
-                                                        class="fa fa-calendar-alt text-primary me-2"></i>{{ $item->course->duration }}
-                                                    Week
-                                                </div>
-                                            </div>
-                                            <span
-                                                class="badge bg-warning text-dark rounded-pill">${{ $item->course->price }}</span>
-                                        </li>
-                                    @endforeach
-                                </ul>
-
-                                <ul class="list-group">
-                                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                                        <div class="ms-2 me-auto">
-                                            <div class="fw-bold">Total(USD)</div>
-                                        </div>
-                                        <span
-                                            class="badge bg-warning text-dark rounded-pill">${{ $data->sum('course.price') }}</span>
-                                    </li>
-                                </ul>
-                                <Button class="btn btn-primary w-100" id="pay-button"><i
-                                        class="fa fa-credit-card me-2"></i>Payment
-                                    Now</Button>
-                            </div>
+                    @if ($data->isEmpty())
+                        <div class="" style="margin-top: 1.2em">
+                            <h4 class="text-danger fw-bold">Data checkout course is null...</h4>
                         </div>
-                    </div>
+                    @else
+                        @include('pages.order-payment.checkout')
+                    @endif
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...
                 </div>
@@ -126,64 +31,9 @@
         </div>
     </div>
 
-    <div class="modal fade" id="snap-modal" tabindex="-1" aria-labelledby="snapModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="snapModalLabel">Complete Your Payment</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="snap-container" class="w-100"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @push('scripts')
-        <script type="text/javascript">
-            function initializeSnap() {
-                var snapToken = '{{ $snapToken }}';
-
-                if (typeof window.snap !== 'undefined' && snapToken) {
-                    var payButton = document.getElementById('pay-button');
-
-                    payButton.addEventListener('click', function() {
-                        // Show the modal
-                        var myModal = new bootstrap.Modal(document.getElementById('snap-modal'));
-                        myModal.show();
-
-                        // Embed Snap Midtrans in the modal
-                        window.snap.embed(snapToken, {
-                            embedId: 'snap-container',
-                            onSuccess: function(result) {
-                                alert("Payment success!");
-                                console.log(result);
-                            },
-                            onPending: function(result) {
-                                alert("Waiting for your payment!");
-                                console.log(result);
-                            },
-                            onError: function(result) {
-                                alert("Payment failed!");
-                                console.log(result);
-                            },
-                            onClose: function() {
-                                alert('You closed the popup without finishing the payment');
-                            }
-                        });
-                    });
-                } else {
-                    console.error('Snap Midtrans library is not loaded or snapToken is missing.');
-                }
-            }
-
-            document.addEventListener('DOMContentLoaded', function() {
-                initializeSnap();
-            });
-        </script>
-    @endpush
+    {{-- modal snap midtrans --}}
+    @include('pages.order-payment.modal')
+    {{-- end modal snap midtrans --}}
 @endsection
+
+@include('pages.order-payment.dist.h_snap')

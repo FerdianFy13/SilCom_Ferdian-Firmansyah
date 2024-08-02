@@ -46,7 +46,7 @@ class OrderPaymentController extends Controller
         } else {
             $params = array(
                 'transaction_details' => array(
-                    'order_id' => $data->first()->course->id,
+                    'order_id' => $data->first()->transaction_code,
                     'gross_amount' => $data->sum(function ($item) {
                         return $item->course->price;
                     }),
@@ -58,7 +58,7 @@ class OrderPaymentController extends Controller
                 ),
                 'item_details' => $data->map(function ($item) {
                     return [
-                        'id' => $item->course->id,
+                        'id' => $item->transaction_code,
                         'name' => $item->course->title,
                         'price' => $item->course->price,
                         'quantity' => 1,
