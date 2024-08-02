@@ -109,10 +109,13 @@
                                         <div class="ms-2 me-auto">
                                             <div class="fw-bold">Total(USD)</div>
                                         </div>
-                                        <span class="badge bg-warning text-dark rounded-pill">${{ $data->sum('course.price') }}</span>
+                                        <span
+                                            class="badge bg-warning text-dark rounded-pill">${{ $data->sum('course.price') }}</span>
                                     </li>
                                 </ul>
-                                <Button class="btn btn-primary w-100"><i class="fa fa-credit-card me-2"></i>Payment Now</Button>
+                                <Button class="btn btn-primary w-100" id="pay-button"><i
+                                        class="fa fa-credit-card me-2"></i>Payment
+                                    Now</Button>
                             </div>
                         </div>
                     </div>
@@ -122,4 +125,65 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="snap-modal" tabindex="-1" aria-labelledby="snapModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="snapModalLabel">Complete Your Payment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="snap-container" class="w-100"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @push('scripts')
+        <script type="text/javascript">
+            function initializeSnap() {
+                var snapToken = '{{ $snapToken }}';
+
+                if (typeof window.snap !== 'undefined' && snapToken) {
+                    var payButton = document.getElementById('pay-button');
+
+                    payButton.addEventListener('click', function() {
+                        // Show the modal
+                        var myModal = new bootstrap.Modal(document.getElementById('snap-modal'));
+                        myModal.show();
+
+                        // Embed Snap Midtrans in the modal
+                        window.snap.embed(snapToken, {
+                            embedId: 'snap-container',
+                            onSuccess: function(result) {
+                                alert("Payment success!");
+                                console.log(result);
+                            },
+                            onPending: function(result) {
+                                alert("Waiting for your payment!");
+                                console.log(result);
+                            },
+                            onError: function(result) {
+                                alert("Payment failed!");
+                                console.log(result);
+                            },
+                            onClose: function() {
+                                alert('You closed the popup without finishing the payment');
+                            }
+                        });
+                    });
+                } else {
+                    console.error('Snap Midtrans library is not loaded or snapToken is missing.');
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                initializeSnap();
+            });
+        </script>
+    @endpush
 @endsection
