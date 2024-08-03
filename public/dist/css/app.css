@@ -1,0 +1,32 @@
+.btn-orange {
+    background: #f3722c !important;
+    border-color: #f3722c !important;
+}
+.btn-orange:hover,
+.btn-orange:focus,
+.btn-orange:disabled {
+    background: #f3722c !important;
+    border-color: #f3722c !important;
+}
+
+.btn-green {
+    background: #3e9c80 !important;
+    border-color: #3e9c80 !important;
+}
+.btn-green:hover,
+.btn-green:focus,
+.btn-green:disabled {
+    background: #3e9c80 !important;
+    border-color: #3e9c80 !important;
+}
+
+.btn-red {
+    background: #db4949 !important;
+    border-color: #db4949 !important;
+}
+.btn-red:hover,
+.btn-red:focus,
+.btn-red:disabled {
+    background: #db4949 !important;
+    border-color: #db4949 !important;
+}
