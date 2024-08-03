@@ -20,18 +20,21 @@ class DashboardController extends Controller
             SELECT
                 (SELECT COUNT(*) FROM users WHERE id != :userId) AS user_count,
                 (SELECT COUNT(*) FROM courses) AS course_count,
-                (SELECT COUNT(*) FROM categories) AS category_count
+                (SELECT COUNT(*) FROM categories) AS category_count,
+                (SELECT COUNT(*) FROM order_payments WHERE status = 'Paid') AS order_count
         "), ['userId' => $userId]);
 
         $userData = 0;
         $courseData = 0;
         $categoryData = 0;
+        $orderData = 0;
 
         if (!empty($results)) {
             $result = $results[0];
             $userData = $result->user_count ?? 0;
             $courseData = $result->course_count ?? 0;
             $categoryData = $result->category_count ?? 0;
+            $orderData = $result->order_count ?? 0;
         }
 
         return view('pages.dashboard.index', [
@@ -39,7 +42,8 @@ class DashboardController extends Controller
             'menu' => 'Dashboard',
             'userData' => $userData,
             'courseData' => $courseData,
-            'categoryData' => $categoryData
+            'categoryData' => $categoryData,
+            'orderData' => $orderData
         ]);
     }
 }
