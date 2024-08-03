@@ -11,8 +11,8 @@
                 event.preventDefault();
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Quota Full',
-                    text: 'Sorry, the quota is full. Please choose another option.',
+                    title: 'Quota Full or Inactive Course',
+                    text: 'Sorry, the quota is full or the course is inactive. Please choose another option.',
                     showCancelButton: false,
                     confirmButtonText: 'Ok',
                     confirmButtonColor: '#0F345E',

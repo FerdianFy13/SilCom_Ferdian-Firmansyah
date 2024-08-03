@@ -100,7 +100,7 @@
 
             });
 
-            $('#basic-datatables').on('click', '.deleteButton', function(e) {
+            $('#basic-datatables').on('click', '.deleteButtons', function(e) {
                 e.preventDefault();
 
                 var itemId = $(this).closest('form').find('input[name="id"]').val();
@@ -108,11 +108,11 @@
 
                 Swal.fire({
                     icon: 'question',
-                    title: 'Konfirmasi Hapus?',
-                    text: "Apakah anda yakin ingin menghapus item ini!",
+                    title: 'Confirm Deletion?',
+                    text: "Are you sure you want to delete this item?",
                     showCancelButton: true,
-                    confirmButtonText: 'Ya, hapus!',
-                    cancelButtonText: 'Batal',
+                    confirmButtonText: 'Yes, delete!',
+                    cancelButtonText: 'Cancel',
                     confirmButtonColor: '#0F345E',
                     cancelButtonColor: '#BB1F26',
                     reverseButtons: true
@@ -128,8 +128,8 @@
                             },
                             success: function(response) {
                                 Swal.fire({
-                                    title: 'Berhasil',
-                                    text: 'Hapus data berhasil',
+                                    title: 'Success',
+                                    text: 'Data successfully deleted',
                                     icon: 'success',
                                     confirmButtonColor: '#0F345E',
                                 }).then((result) => {
@@ -141,25 +141,25 @@
                             error: function(xhr, status, error) {
                                 if (xhr.status === 422) {
                                     Swal.fire({
-                                        title: 'Gagal',
-                                        text: 'Maaf, data tidak dapat dihapus karena sedang digunakan oleh data lainnya',
+                                        title: 'Failed',
+                                        text: 'Sorry, the data cannot be deleted because it is being used by other data',
                                         icon: 'warning',
                                         confirmButtonColor: '#0F345E',
                                     });
                                 } else {
                                     Swal.fire({
-                                        title: 'Gagal',
-                                        text: 'Hapus data gagal',
+                                        title: 'Failed',
+                                        text: 'Failed to delete data',
                                         icon: 'error',
                                         confirmButtonColor: '#0F345E',
                                     });
                                 }
                             }
-
                         });
                     }
                 });
             });
+
         });
     </script>
 @endpush

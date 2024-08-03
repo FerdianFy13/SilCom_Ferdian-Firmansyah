@@ -54,7 +54,7 @@
                         </div>
                         <div class="row g-4">
                             <div class="col-sm-6">
-                                @if ($data->quota > 0)
+                                @if ($data->quota > 0 && $data->status == 'Active')
                                     @if (Auth::check())
                                         <form id="formInsert" enctype="multipart/form-data" method="POST">
                                             <input type="hidden" name="course_id" value="{{ $data->id }}">

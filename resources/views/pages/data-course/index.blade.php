@@ -61,7 +61,7 @@
                                                     @method('DELETE')
                                                     <input type="hidden" name="id" value="{{ $item->id }}">
                                                     <button type="button"
-                                                        class="tn btn-icon btn-round btn-red btn-md deleteButton">
+                                                        class="tn btn-icon btn-round btn-red btn-md deleteButtons">
                                                         <i class="fa fa-trash-alt text-white"></i>
                                                     </button>
                                                 </form>
@@ -80,3 +80,4 @@
 
 @include('pages.data-course.dist.h_table')
 @include('pages.data-course.dist.h_status')
+@include('pages.data-course.dist.h_insert')
