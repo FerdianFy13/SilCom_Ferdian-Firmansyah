@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\OrderPayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
@@ -253,12 +254,50 @@ class DataCourseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $orderCourse = OrderPayment::where('course_id', $id)->count();
+
+        if ($orderCourse > 0) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'The course cannot be deleted because it is associated with an order payment.'
+            ], 422);
+        }
+        $data = Course::findOrFail($id);
+
+        if ($data) {
+            if ($data->image_poster) {
+                Storage::delete($data->image_poster);
+            }
+            if ($data->image_banner) {
+                Storage::delete($data->image_banner);
+            }
+
+            $data->delete();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'The course has been successfully deleted.'
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to delete the course.'
+            ], 500);
+        }
     }
 
     public function updateStatus(Course $category)
     {
         try {
+            $orderCourse = OrderPayment::where('course_id', $category->id)->where('status', 'Unpaid')->count();
+
+            if ($orderCourse > 0) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'The course cannot be updated because it is associated with an order payment.'
+                ], 422);
+            }
+
             $category->status = ($category->status === 'Active') ? 'Inactive' : 'Active';
             $category->save();
 
