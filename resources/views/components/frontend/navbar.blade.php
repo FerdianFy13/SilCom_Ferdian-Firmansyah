@@ -42,7 +42,9 @@
                     </div>
                 @endif
 
-                <a href="contact.html" class="nav-item nav-link"><i class="fa fa-shopping-cart"></i></a>
+                <a href="{{ url('/order-payment') }}"
+                    class="nav-item nav-link {{ request()->is('order-payment*') ? 'active' : '' }}"><i
+                        class="fa fa-shopping-cart"></i></a>
             @else
                 <a href="{{ url('/login') }}" class="nav-item nav-link">
                     <i class="fa fa-sign-in-alt"></i> Login

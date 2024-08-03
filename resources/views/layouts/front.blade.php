@@ -6,6 +6,11 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Silcom, Ferdian Firmansyah, Driver" name="keywords">
+
+    @if (Auth::check())
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+    @endif
+
     <meta content="Sicom - Ferdian Firmansyah Website" name="description">
     {{-- end meta --}}
 
@@ -29,7 +34,20 @@
     <link href="{{ asset('front/lib/animate/animate.min.cs') }}s" rel="stylesheet">
     <link href="{{ asset('front/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
     <link href="{{ asset('front/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('dist/vendors/sweetalert2/sweetalert2.min.css') }}" media="print"
+        onload="this.media='all'">
     <link href="{{ asset('front/css/style.css') }}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script>
+
+    @if (Auth::check())
+        <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+            data-client-key="{{ config('midtrans.client_key') }}"></script>
+    @endif
+
+    @stack('styles')
     {{-- end css --}}
 </head>
 
@@ -92,7 +110,11 @@
     <script src="{{ asset('front/lib/easing/easing.min.js') }}"></script>
     <script src="{{ asset('front/lib/waypoints/waypoints.min.js') }}"></script>
     <script src="{{ asset('front/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    {{-- <script src="{{ asset('dist/js/plugin/datatables/datatables.min.js') }}"></script> --}}
+    <script defer src="{{ asset('dist/vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('front/js/main.js') }}"></script>
+
+    @stack('scripts')
     {{-- end javascript --}}
 </body>
 

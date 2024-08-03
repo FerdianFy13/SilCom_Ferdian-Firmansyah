@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Course extends Model
+class OrderPayment extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
 
-    public function category()
+    public function course()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Course::class, 'course_id');
     }
 
-    public function OrderPayment()
+    public function user()
     {
-        return $this->belongsTo(OrderPayment::class);
+        return $this->belongsTo(User::class);
     }
 }
