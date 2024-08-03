@@ -20,6 +20,7 @@ class OrderPaymentController extends Controller
         $history = OrderPayment::with(['course.category', 'user'])
             ->where('user_id', Auth::id())
             ->where('status', 'Paid')
+            ->latest('created_at')
             ->get();
 
         $totalPrice = $history->sum(function ($orderPayment) {

@@ -9,6 +9,7 @@
                 <th class="text-start">Payment Method</th>
                 <th class="text-start">Account Number</th>
                 <th class="text-center">Price</th>
+                <th class="text-center">Payment Date</th>
                 <th class="text-center">Action</th>
             </tr>
         </thead>
@@ -22,6 +23,7 @@
                     <td class="text-start">{{ $item->payment_method }}</td>
                     <td class="text-start">{{ $item->account_number }}</td>
                     <td class="text-end">${{ $item->course->price }}</td>
+                    <td class="text-center">{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
                     <td class="text-center">
                         <div class="form-button-action">
                             <a href="{{ url('courses/' . encrypt($item->id)) }}"
@@ -35,9 +37,9 @@
         </tbody>
         <tfoot>
             <tr></tr>
-                <th class="text-end fw-bold" colspan="6">Result All</th>
-                <th class="text-end">${{ $totalPrice }}</th>
-                <th class="text-center"></th>
+            <th class="text-end fw-bold" colspan="7">Result All</th>
+            <th class="text-end">${{ $totalPrice }}</th>
+            <th class="text-center"></th>
             </tr>
         </tfoot>
     </table>
