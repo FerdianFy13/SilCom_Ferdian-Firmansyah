@@ -2,57 +2,43 @@
     <table id="basic-datatables" class="display table table-hover">
         <thead>
             <tr>
-                <th>No</th>
-                <th>Course</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Duration</th>
-                <th>Quota</th>
-                <th>Transaction Code</th>
-                <th>Transaction Status</th>
-                <th>Action</th>
+                <th class="text-start">No</th>
+                <th class="text-start">Course</th>
+                <th class="text-start">Transaction Code</th>
+                <th class="text-center">Payment Status</th>
+                <th class="text-start">Payment Method</th>
+                <th class="text-start">Account Number</th>
+                <th class="text-center">Price</th>
+                <th class="text-center">Action</th>
             </tr>
         </thead>
         <tbody>
-            {{-- @foreach ($history as $item)
+            @foreach ($history as $item)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->title }}</td>
-                    <td>{{ $item->category->name }}</td>
-                    <td>${{ $item->price }}</td>
-                    <td>{{ $item->duration }} Week</td>
-                    <td>{{ $item->quota }}</td>
-                    <td>
-                        <button type="submit"
-                            class="btn btn-primary btn-round btn-md {{ $item->status === 'Active' ? 'btn-green' : 'btn-red' }}"
-                            id="btn-status" data-id="{{ $item->id }}">
-                            {{ $item->status }}
-                        </button>
-
-                    </td>
-                    <td>
+                    <td class="text-start">{{ $loop->iteration }}</td>
+                    <td class="text-start">{{ Str::limit($item->course->title, 20) }}</td>
+                    <td class="text-start">{{ $item->transaction_code }}</td>
+                    <td class="text-center">{{ $item->status }}</td>
+                    <td class="text-start">{{ $item->payment_method }}</td>
+                    <td class="text-start">{{ $item->account_number }}</td>
+                    <td class="text-end">${{ $item->course->price }}</td>
+                    <td class="text-center">
                         <div class="form-button-action">
-                            <a href="{{ route('data-course.show', encrypt($item->id)) }}"
+                            <a href="{{ url('courses/' . encrypt($item->id)) }}"
                                 class="btn btn-icon btn-round btn-primary btn-md me-3">
                                 <i class="fa fa-eye text-white"></i>
                             </a>
-                            <a href="{{ route('data-course.edit', encrypt($item->id)) }}"
-                                class="btn btn-icon btn-round btn-green btn-md me-3">
-                                <i class="fa fa-edit text-white"></i>
-                            </a>
-                            <form action="{{ route('data-course.destroy', $item->id) }}" method="POST"
-                                enctype="multipart/form-data" id="formDelete">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="id" value="{{ $item->id }}">
-                                <button type="button" class="tn btn-icon btn-round btn-red btn-md deleteButton">
-                                    <i class="fa fa-trash-alt text-white"></i>
-                                </button>
-                            </form>
                         </div>
                     </td>
                 </tr>
-            @endforeach --}}
+            @endforeach
         </tbody>
+        <tfoot>
+            <tr></tr>
+                <th class="text-end fw-bold" colspan="6">Result All</th>
+                <th class="text-end">${{ $totalPrice }}</th>
+                <th class="text-center"></th>
+            </tr>
+        </tfoot>
     </table>
 </div>

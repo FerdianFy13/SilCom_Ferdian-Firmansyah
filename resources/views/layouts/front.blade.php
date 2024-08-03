@@ -39,6 +39,9 @@
     <link href="{{ asset('front/css/style.css') }}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script>
+
     @if (Auth::check())
         <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
             data-client-key="{{ config('midtrans.client_key') }}"></script>
@@ -107,7 +110,7 @@
     <script src="{{ asset('front/lib/easing/easing.min.js') }}"></script>
     <script src="{{ asset('front/lib/waypoints/waypoints.min.js') }}"></script>
     <script src="{{ asset('front/lib/owlcarousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('dist/js/plugin/datatables/datatables.min.js') }}"></script>
+    {{-- <script src="{{ asset('dist/js/plugin/datatables/datatables.min.js') }}"></script> --}}
     <script defer src="{{ asset('dist/vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('front/js/main.js') }}"></script>
 

@@ -22,6 +22,10 @@ class OrderPaymentController extends Controller
             ->where('status', 'Paid')
             ->get();
 
+        $totalPrice = $history->sum(function ($orderPayment) {
+            return $orderPayment->course->price;
+        });
+
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
         \Midtrans\Config::$isProduction = false;
         \Midtrans\Config::$isSanitized = true;
@@ -81,6 +85,7 @@ class OrderPaymentController extends Controller
             'snapToken' => $snapToken,
             'history' => $history,
             'idData' => $data->first(),
+            'totalPrice' => $totalPrice
         ]);
     }
 

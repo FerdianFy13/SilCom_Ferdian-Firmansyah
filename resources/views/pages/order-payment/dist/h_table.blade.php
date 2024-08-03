@@ -1,7 +1,7 @@
 @push('scripts')
     <script>
-        $(document).ready(function() {
-            $("#basic-datatables").DataTable({});
+        let table = new DataTable('#basic-datatables', {
+            responsive: true
         });
     </script>
 @endpush
