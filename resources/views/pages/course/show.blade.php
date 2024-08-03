@@ -54,26 +54,28 @@
                         </div>
                         <div class="row g-4">
                             <div class="col-sm-6">
-                                @if ($data->quota > 0 && $data->status == 'Active')
-                                    @if (Auth::check())
-                                        <form id="formInsert" enctype="multipart/form-data" method="POST">
-                                            <input type="hidden" name="course_id" value="{{ $data->id }}">
-                                            <a class="btn btn-primary py-3 px-5" id="btn-checkout">
+                                @role('Customer')
+                                    @if ($data->quota > 0 && $data->status == 'Active')
+                                        @if (Auth::check())
+                                            <form id="formInsert" enctype="multipart/form-data" method="POST">
+                                                <input type="hidden" name="course_id" value="{{ $data->id }}">
+                                                <a class="btn btn-primary py-3 px-5" id="btn-checkout">
+                                                    Checkout Now
+                                                </a>
+                                            </form>
+                                        @else
+                                            <a class="btn btn-primary py-3 px-5"
+                                                href="{{ route('login') . '?redirect=' . urlencode(url('/courses/' . encrypt($data->id))) }}">
                                                 Checkout Now
                                             </a>
-                                        </form>
+                                        @endif
                                     @else
-                                        <a class="btn btn-primary py-3 px-5"
-                                            href="{{ route('login') . '?redirect=' . urlencode(url('/courses/' . encrypt($data->id))) }}">
+                                        <a class="btn btn-secondary py-3 px-5" tabindex="-1" id="btn-disabled"
+                                            aria-disabled="true">
                                             Checkout Now
                                         </a>
                                     @endif
-                                @else
-                                    <a class="btn btn-secondary py-3 px-5" tabindex="-1" id="btn-disabled"
-                                        aria-disabled="true">
-                                        Checkout Now
-                                    </a>
-                                @endif
+                                @endrole
                             </div>
                             <div class="col-sm-6">
                                 <a class="d-inline-flex align-items-center btn btn-outline-primary border-2 p-2"
