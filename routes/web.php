@@ -37,6 +37,7 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 Route::group(['middleware' => ['auth', 'role:Customer']], function () {
     Route::get('/order-payment', [OrderPaymentController::class, 'index']);
     Route::post('/order-payment/destroy/{id}', [OrderPaymentController::class, 'destroy'])->name('order-payment.destroy');
+    Route::post('/order-payment/confirm/{id}', [OrderPaymentController::class, 'update'])->name('order-payment.confirm');
 });
 
 // backend

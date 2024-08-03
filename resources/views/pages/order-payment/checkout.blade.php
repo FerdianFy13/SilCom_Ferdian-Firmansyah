@@ -101,3 +101,10 @@
         </div>
     </div>
 </div>
+
+
+<form id="formInsert" enctype="multipart/form-data" method="post"
+    action="{{ route('order-payment.confirm', $idData->id) }}">
+    @method('patch')
+    @csrf
+</form>

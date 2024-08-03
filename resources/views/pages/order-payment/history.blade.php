@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($history as $item)
+            {{-- @foreach ($history as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->title }}</td>
@@ -52,7 +52,7 @@
                         </div>
                     </td>
                 </tr>
-            @endforeach
+            @endforeach --}}
         </tbody>
     </table>
 </div>

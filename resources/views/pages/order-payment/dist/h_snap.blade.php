@@ -7,37 +7,78 @@
                 var payButton = document.getElementById('pay-button');
 
                 payButton.addEventListener('click', function() {
-                    // Show the modal
                     var myModal = new bootstrap.Modal(document.getElementById('snap-modal'));
                     myModal.show();
 
-                    // Embed Snap Midtrans in the modal
                     window.snap.embed(snapToken, {
                         embedId: 'snap-container',
                         onSuccess: function(result) {
-                            alert("Payment success!");
-                            console.log(result);
+                            const bank = result.bank ? result.bank.toUpperCase() : 'N/A';
+                            const paymentType = result.payment_type ? result.payment_type.replace(/_/g,
+                                ' ').replace(/\b\w/g, char => char.toUpperCase()) : 'N/A';
+
+                            const formattedPaymentMethod = `${bank} - ${paymentType}`;
+                            const accountNumber = result.masked_card ? result.masked_card : 'N/A';
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Payment Successful!',
+                                text: 'Your payment has been processed successfully.',
+                                confirmButtonColor: '#0F345E',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    document.getElementById("formInsert").submit();
+
+                                    const formData = new FormData();
+                                    formData.append('payment_method', formattedPaymentMethod);
+                                    formData.append('account_number', accountNumber);
+
+                                    $.ajax({
+                                        url: $('#formInsert').attr('action'),
+                                        type: 'POST',
+                                        dataType: 'json',
+                                        data: formData,
+                                        contentType: false,
+                                        processData: false,
+                                        success: function(response) {
+                                            window.location.href =
+                                                `{{ url('/order-payment') }}`;
+                                        },
+                                        error: function(xhr) {
+                                            window.location.href =
+                                                `{{ url('/order-payment') }}`;
+                                        }
+                                    });
+                                }
+                            });
                         },
                         onPending: function(result) {
-                            alert("Waiting for your payment!");
-                            console.log(result);
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Waiting for Payment!',
+                                text: 'Your payment is still pending.',
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: '#0F345E'
+                            });
                         },
                         onError: function(result) {
-                            alert("Payment failed!");
-                            console.log(result);
-                        },
-                        onClose: function() {
-                            alert('You closed the popup without finishing the payment');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Payment Failed!',
+                                text: 'There was an error processing your payment.',
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: '#0F345E'
+                            });
                         }
                     });
                 });
-            } else {
-                console.error('Snap Midtrans library is not loaded or snapToken is missing.');
-            }
+            } else {}
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            initializeSnap();
+            try {
+                initializeSnap();
+            } catch (error) {}
         });
 
         $(document).ready(() => {

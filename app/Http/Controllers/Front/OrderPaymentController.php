@@ -63,7 +63,7 @@ class OrderPaymentController extends Controller
                 ),
                 'item_details' => $data->map(function ($item) {
                     return [
-                        'id' => $item->transaction_code,
+                        'id' => $item->course_id,
                         'name' => $item->course->title,
                         'price' => $item->course->price,
                         'quantity' => 1,
@@ -80,6 +80,7 @@ class OrderPaymentController extends Controller
             'data' => $data,
             'snapToken' => $snapToken,
             'history' => $history,
+            'idData' => $data->first(),
         ]);
     }
 
@@ -118,6 +119,39 @@ class OrderPaymentController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to delete the order payment.',
+            ], 500);
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = OrderPayment::findOrFail($id);
+
+        $paymentMethod = $request->input('payment_method');
+        $accountNumber = $request->input('account_number');
+
+        try {
+            $data->update([
+                'status' => 'Paid',
+                'transaction_code' => SELF::generateUniqueTransactionNumber(),
+                'payment_method' => $paymentMethod,
+                'account_number' => $accountNumber,
+            ]);
+
+            $course = Course::findOrFail($data->course_id);
+
+            $course->update([
+                'quota' => $course->quota - 1,
+            ]);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Order payment successfully updated.',
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to update the order payment.',
             ], 500);
         }
     }
