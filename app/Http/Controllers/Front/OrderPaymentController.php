@@ -51,7 +51,7 @@ class OrderPaymentController extends Controller
         } else {
             $params = array(
                 'transaction_details' => array(
-                    'order_id' => $data->first()->transaction_code,
+                    'order_id' => SELF::generateUniqueTransactionNumber(),
                     'gross_amount' => $data->sum(function ($item) {
                         return $item->course->price;
                     }),
@@ -81,5 +81,44 @@ class OrderPaymentController extends Controller
             'snapToken' => $snapToken,
             'history' => $history,
         ]);
+    }
+
+    public static function generateUniqueTransactionNumber()
+    {
+        $randomString = substr(str_shuffle(str_repeat('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 5)), 0, 10);
+
+        $isUnique = self::checkUniqueTransactionNumber($randomString);
+
+        while (!$isUnique) {
+            $randomString = substr(str_shuffle(str_repeat('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 5)), 0, 10);
+            $isUnique = self::checkUniqueTransactionNumber($randomString);
+        }
+
+        return $randomString;
+    }
+
+    public static function checkUniqueTransactionNumber($transactionNumber)
+    {
+        $existingTransaction = OrderPayment::where('transaction_code', $transactionNumber)->first();
+        return !$existingTransaction;
+    }
+
+    public function destroy($id)
+    {
+        $data = OrderPayment::findOrFail($id);
+
+        if ($data) {
+            $data->delete();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'The order payment has been successfully deleted.',
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to delete the order payment.',
+            ], 500);
+        }
     }
 }

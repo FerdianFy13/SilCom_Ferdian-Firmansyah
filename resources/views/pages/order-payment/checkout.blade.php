@@ -3,7 +3,7 @@
         <div class="col-md-8">
             <div class="mb-4">
                 <h4 class="mb-2">A. Personal Information</h4>
-                <div class="mb-3 row">
+                <div class="mb-2 row">
                     <label for="name" class="col-sm-2 col-form-label">Name:</label>
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext" id="name"
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="mb-2 row">
-                    <label for="phone" class="col-sm-2 col-form-label">Phone Number:</label>
+                    <label for="phone" class="col-sm-2 col-form-label">Phone:</label>
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext" id="phone"
                             value="{{ Auth::user()->phone }}">
@@ -40,7 +40,7 @@
                         <div class="row g-0">
                             <div class="col-md-4">
                                 <img src="{{ Storage::exists($item->course->image_poster) ? asset('storage/' . $item->course->image_poster) : asset('front/img/about-1.jpg') }}"
-                                    class="img-fluid rounded-start" alt="{{ $item->course->title }}">
+                                    class="img-fluid rounded-start h-100" alt="{{ $item->course->title }}">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -54,7 +54,13 @@
                                         <li>Price: ${{ $item->course->price }}</li>
                                         <li>Quota: {{ $item->course->quota }}</li>
                                     </ul>
-                                    <a id="btn-delete-checkout" class="btn btn-danger">Delete</a>
+                                    <form action="{{ route('order-payment.destroy', $item->id) }}" method="POST"
+                                        enctype="multipart/form-data" id="formDelete">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="id" value="{{ $item->id }}">
+                                        <a id="btn-delete-checkout" class="btn btn-danger">Delete</a>
+                                    </form>
                                 </div>
                             </div>
                         </div>

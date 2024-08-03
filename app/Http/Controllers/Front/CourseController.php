@@ -39,6 +39,7 @@ class CourseController extends Controller
             $validation = $request->validate([
                 'course_id' => 'required|exists:courses,id',
                 'status' => 'nullable',
+                'transaction_code' => 'nullable',
                 'payment_method' => 'nullable',
                 'account_number' => 'nullable',
             ], $this->messageValidation(), $this->attributeValidation());
@@ -55,7 +56,6 @@ class CourseController extends Controller
             }
 
             $validation['user_id'] = Auth::id();
-            $validation['transaction_code'] = self::generateUniqueTransactionNumber();
 
             $data = OrderPayment::create($validation);
 
@@ -74,26 +74,6 @@ class CourseController extends Controller
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
         }
-    }
-
-    public static function generateUniqueTransactionNumber()
-    {
-        $randomString = substr(str_shuffle(str_repeat('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 5)), 0, 10);
-
-        $isUnique = self::checkUniqueTransactionNumber($randomString);
-
-        while (!$isUnique) {
-            $randomString = substr(str_shuffle(str_repeat('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 5)), 0, 10);
-            $isUnique = self::checkUniqueTransactionNumber($randomString);
-        }
-
-        return $randomString;
-    }
-
-    public static function checkUniqueTransactionNumber($transactionNumber)
-    {
-        $existingTransaction = OrderPayment::where('transaction_code', $transactionNumber)->first();
-        return !$existingTransaction;
     }
 
     private function messageValidation()
