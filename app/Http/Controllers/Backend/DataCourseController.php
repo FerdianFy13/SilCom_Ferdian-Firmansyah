@@ -289,6 +289,15 @@ class DataCourseController extends Controller
     public function updateStatus(Course $category)
     {
         try {
+            $orderCourse = OrderPayment::where('course_id', $category->id)->where('status', 'Unpaid')->count();
+
+            if ($orderCourse > 0) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'The course cannot be updated because it is associated with an order payment.'
+                ], 422);
+            }
+
             $category->status = ($category->status === 'Active') ? 'Inactive' : 'Active';
             $category->save();
 
