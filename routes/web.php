@@ -8,6 +8,7 @@ use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\DataCourseController;
 use App\Http\Controllers\Backend\DataCategoryController;
+use App\Http\Controllers\Backend\DataPaymentHistoryController;
 use App\Http\Controllers\Backend\DataUserManagementController;
 use App\Http\Controllers\Front\OrderPaymentController;
 
@@ -51,6 +52,9 @@ Route::group(['middleware' => ['auth', 'role:Admin']], function () {
 
     // data category
     Route::resource('/data-category', DataCategoryController::class)->except('destroy');
+
+    // data payment
+    Route::get('/data-payment', [DataPaymentHistoryController::class, 'index']);
 
     // data user management
     Route::resource('/data-user', DataUserManagementController::class)->only('index');
